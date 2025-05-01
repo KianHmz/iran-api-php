@@ -7,12 +7,12 @@ use App\Utilities\QueryHelper;
 
 class CityRepository
 {
-    protected Database $db;
+    protected $db;
     protected $table = 'city';
 
-    public function __construct(Database $db)
+    public function __construct()
     {
-        $this->db = $db;
+        $this->db = Database::connect();
     }
 
     public function getCities(array $data = []): array

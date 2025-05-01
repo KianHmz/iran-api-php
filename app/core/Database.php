@@ -2,16 +2,22 @@
 
 namespace App\Core;
 
-class Database extends \PDO
+class Database
 {
-    public function __construct($host, $dbname, $username, $password, $charset = 'utf8mb4')
+    private static $pdo = null;
+
+    public static function connect()
     {
-        $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
-        try {
-            parent::__construct($dsn, $username, $password);
-            $this->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        } catch (\PDOException $e) {
-            throw new \Exception('ERROR db connection: ' . $e->getMessage());
+        if (self::$pdo === null) {
+            $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
+            try {
+                self::$pdo = new \PDO($dsn, DB_USERNAME, DB_PASSWORD);
+                self::$pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            } catch (\PDOException $e) {
+                die('ERROR: DB Connection failed: ' . $e->getMessage());
+            }
         }
+
+        return self::$pdo;
     }
 }
