@@ -25,7 +25,7 @@ class CityService
         $province_id = $data['province_id'];
         $city_name = $data['name'];
 
-        if (!(Validator::isValidProvinceId($province_id) || Validator::isValidCityName($city_name))) {
+        if (!Validator::isValidProvinceId($province_id) || !Validator::isValidCityName($city_name)) {
             return false;
         }
         return $this->repo->addCity($data);
@@ -36,7 +36,7 @@ class CityService
         $city_id = $data['city_id'];
         $city_name = $data['name'];
 
-        if (!(Validator::isValidCityId($city_id) || Validator::isValidCityName($city_name))) {
+        if (!Validator::isValidCityId($city_id) || !Validator::isValidCityName($city_name)) {
             return false;
         }
         return $this->repo->changeCityName($city_id, $city_name);

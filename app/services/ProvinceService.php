@@ -35,7 +35,7 @@ class ProvinceService
         $province_id = $data['province_id'];
         $province_name = $data['name'];
 
-        if (!(Validator::isValidProvinceId($province_id) || Validator::isValidProvinceName($province_name))) {
+        if (!Validator::isValidProvinceId($province_id) || !Validator::isValidProvinceName($province_name)) {
             return false;
         }
         return $this->repo->changeProvinceName($province_id, $province_name);
