@@ -34,4 +34,15 @@ class ProvinceRepository
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_OBJ);
     }
+
+    public function addProvince(array $data): bool|int
+    {
+        $sql = "INSERT INTO {$this->table} (name) VALUES (:name)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':name' => $data['name']
+        ]);
+
+        return $stmt->rowCount();
+    }
 }
