@@ -7,7 +7,7 @@ class Validator
 
     public static function isValidCityName($city_name): bool
     {
-        return isset($city_name) || empty($city_name) ? false : true;
+        return !isset($city_name) || empty($city_name) ? false : true;
     }
 
 
@@ -19,7 +19,7 @@ class Validator
 
     public static function isValidProvinceName($province_name): bool
     {
-        return isset($province_name) || empty($province_name) ? false : true;
+        return !isset($province_name) || empty($province_name) ? false : true;
     }
 
 
