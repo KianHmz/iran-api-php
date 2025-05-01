@@ -51,4 +51,16 @@ class CityRepository
 
         return $stmt->rowCount();
     }
+
+    public function changeCityName(int $city_id, string $name): int
+    {
+        $sql = "UPDATE {$this->table} SET name = :name WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':name' => $name,
+            ':id' => $city_id
+        ]);
+
+        return $stmt->rowCount();
+    }
 }
