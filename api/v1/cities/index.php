@@ -5,6 +5,7 @@ require_once __DIR__ . '../../../../bootstrap.php';
 use App\Repositories\CityRepository;
 use App\Services\CityService;
 use App\Utilities\Response;
+use App\Utilities\CacheUtility;
 
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 $requestBody = json_decode(file_get_contents('php://input'), true);
@@ -13,6 +14,8 @@ $responseData = [];
 $responseStatusCode = Response::HTTP_OK;
 
 $cs = new CityService(new CityRepository());
+
+CacheUtility::start();
 
 switch ($requestMethod) {
 
@@ -51,4 +54,8 @@ switch ($requestMethod) {
         break;
 }
 
-Response::respondAndDie($responseData, $responseStatusCode);
+echo Response::respond($responseData, $responseStatusCode);
+
+CacheUtility::end();
+
+exit;

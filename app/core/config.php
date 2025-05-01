@@ -9,7 +9,7 @@ return [
     ],
     'cache' => [
         'enabled' => true,
-        'exp' => 3600, // 1 hour
-        'dir' => __DIR__ . '/../cache',
+        'exp' => 3, // seconds
+        'dir' => __DIR__ . '/../../cache/',
     ],
 ];
