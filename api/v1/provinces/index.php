@@ -5,6 +5,7 @@ require_once __DIR__ . '../../../../bootstrap.php';
 use App\Repositories\ProvinceRepository;
 use App\Services\ProvinceService;
 use App\Utilities\Response;
+use App\Utilities\CacheUtility;
 
 $requestMethod = $_SERVER['REQUEST_METHOD'];
 $requestBody = json_decode(file_get_contents('php://input'), true);
@@ -13,6 +14,8 @@ $responseData = [];
 $responseStatusCode = Response::HTTP_OK;
 
 $ps = new ProvinceService(new ProvinceRepository());
+
+CacheUtility::start();
 
 switch ($requestMethod) {
 
@@ -50,4 +53,8 @@ switch ($requestMethod) {
         break;
 }
 
-Response::respondAndDie($responseData, $responseStatusCode);
+echo Response::respond($responseData, $responseStatusCode);
+
+CacheUtility::end();
+
+exit;

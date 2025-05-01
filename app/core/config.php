@@ -8,8 +8,8 @@ return [
         'password' => '',
     ],
     'cache' => [
-        'enabled' => true,
-        'exp' => 3, // seconds
+        'enabled' => 1,
+        'exp' => 3600, // seconds
         'dir' => __DIR__ . '/../../cache/',
     ],
 ];
