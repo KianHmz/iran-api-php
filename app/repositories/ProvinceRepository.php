@@ -45,4 +45,16 @@ class ProvinceRepository
 
         return $stmt->rowCount();
     }
+
+    public function changeProvinceName(int $province_id, string $name): int
+    {
+        $sql = "UPDATE {$this->table} SET name = :name WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':name' => $name,
+            ':id' => $province_id
+        ]);
+
+        return $stmt->rowCount();
+    }
 }
