@@ -39,4 +39,16 @@ class CityRepository
         $stmt->execute($params);
         return $stmt->fetchAll(\PDO::FETCH_OBJ);
     }
+
+    public function addCity(array $data): bool|int
+    {
+        $sql = "INSERT INTO {$this->table} (province_id, name) VALUES (:province_id, :name)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':province_id' => $data['province_id'],
+            ':name' => $data['name']
+        ]);
+
+        return $stmt->rowCount();
+    }
 }
