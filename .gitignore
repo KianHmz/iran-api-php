@@ -1,7 +1,6 @@
-/doc
+/doc/
 
 /vendor/
-Iran/vendor/
 
 composer.lock
 composer.phar
@@ -21,8 +20,6 @@ Thumbs.db
 
 cache/
 tmp/
-Iran/tmp/
-Iran/cache/
 
 .phpunit.result.cache
 
