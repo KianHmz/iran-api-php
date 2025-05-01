@@ -63,4 +63,13 @@ class CityRepository
 
         return $stmt->rowCount();
     }
+
+    public function deleteCity(int $city_id): int
+    {
+        $sql = "DELETE FROM {$this->table} WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([':id' => $city_id]);
+
+        return $stmt->rowCount();
+    }
 }
