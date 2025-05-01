@@ -3,10 +3,22 @@
 namespace App\Utilities;
 
 use App\Core\Database;
-use App\Utilities\Validator;
+use App\Utilities\ValidatorUtility;
 
-class QueryHelper
+/**
+ * Query utility class for building SQL queries with dynamic filters
+ * 
+ * This class provides methods for constructing SQL queries with various
+ * filtering options including field selection, ordering, and pagination.
+ */
+class QueryUtility
 {
+    /**
+     * Retrieves all column names from a database table
+     * 
+     * @param string $table_name Name of the table to get columns from
+     * @return array Array of column names
+     */
     public static function getColumns(string $table_name): array
     {
         $db = Database::connect();
@@ -14,6 +26,13 @@ class QueryHelper
         return $stmt->fetchAll(\PDO::FETCH_COLUMN);
     }
 
+    /**
+     * Filters and validates requested fields for SQL SELECT statement
+     * 
+     * @param array $data Request data containing fields parameter
+     * @param string $table_name Name of the table to validate fields against
+     * @return string Comma-separated list of valid fields or '*' for all fields
+     */
     public static function fieldsFilter(array $data, string $table_name): string
     {
         $fields = $data['fields'] ?? '*';
@@ -30,13 +49,18 @@ class QueryHelper
         return $fields;
     }
 
-
+    /**
+     * Creates WHERE clause and parameters for province_id filtering
+     * 
+     * @param array $data Request data containing province_id parameter
+     * @return array Array containing WHERE clause parts and parameters
+     */
     public static function provinceIdFilter(array $data): array
     {
         $where = [];
         $params = [];
 
-        if (Validator::isValidProvinceId($data['province_id'])) {
+        if (ValidatorUtility::isValidProvinceId($data['province_id'])) {
             $where[] = "province_id = :province_id";
             $params[':province_id'] = $data['province_id'];
         }
@@ -44,11 +68,17 @@ class QueryHelper
         return [$where, $params];
     }
 
+    /**
+     * Creates LIMIT clause for pagination
+     * 
+     * @param array $data Request data containing page and page_size parameters
+     * @return string|null LIMIT clause or null if pagination parameters are invalid
+     */
     public static function paginationFilter(array $data): ?string
     {
         if (
-            Validator::isValidNumeric($data['page']) &&
-            Validator::isValidNumeric($data['page_size'])
+            ValidatorUtility::isValidNumeric($data['page']) &&
+            ValidatorUtility::isValidNumeric($data['page_size'])
         ) {
             $offset = (int)$data['page_size'] * ((int)$data['page'] - 1);
             $limit = (int)$data['page_size'];
@@ -59,6 +89,13 @@ class QueryHelper
         return null;
     }
 
+    /**
+     * Creates ORDER BY clause for sorting
+     * 
+     * @param array $data Request data containing orderby parameter
+     * @param string $table_name Name of the table to validate sort field against
+     * @return string|null ORDER BY clause or null if sort parameters are invalid
+     */
     public static function orderbyFilter(array $data, $table_name): ?string
     {
         if (!isset($data['orderby']) || empty($data['orderby'])) {

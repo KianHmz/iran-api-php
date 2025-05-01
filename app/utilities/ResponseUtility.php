@@ -2,7 +2,13 @@
 
 namespace App\Utilities;
 
-class Response
+/**
+ * HTTP Response utility class for responding
+ * 
+ * This class provides methods for handling HTTP responses, including
+ * status codes, headers, and JSON response formatting.
+ */
+class ResponseUtility
 {
     public const HTTP_CONTINUE = 100;
     public const HTTP_SWITCHING_PROTOCOLS = 101;
@@ -134,6 +140,13 @@ class Response
         511 => 'Network Authentication Required',                             // RFC6585
     ];
 
+    /**
+     * Sends a JSON response with the specified data and status code
+     * 
+     * @param mixed $data Response data to be encoded as JSON
+     * @param int $status_code HTTP status code (defaults to 200)
+     * @return string JSON-encoded response with status information
+     */
     public static function respond($data, int $status_code = self::HTTP_OK)
     {
         self::setHeaders($status_code);
@@ -147,6 +160,11 @@ class Response
         return json_encode($response);
     }
 
+    /**
+     * Sets HTTP response headers
+     * 
+     * @param int $status_code HTTP status code (defaults to 200)
+     */
     public static function setHeaders($status_code = self::HTTP_OK)
     {
         header("Access-Control-Allow-Origin: *");

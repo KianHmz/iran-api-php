@@ -1,5 +1,28 @@
 <?php
 
+/**
+* Cities API Endpoint
+*
+* This file handles all HTTP requests related to city operations.
+* It supports GET, POST, PUT, and DELETE methods for managing city data.
+*
+* GET Parameters:
+* - province_id: Filter cities by province ID
+* - fields: Comma-separated list of fields to return
+* - orderby: Field and direction for sorting (e.g., "name ASC")
+* - page: Page number for pagination
+* - page_size: Number of items per page
+*
+* POST/PUT Body:
+* - name: City name
+* - province_id: ID of the province (required for POST)
+*
+* DELETE Parameters:
+* - city_id: ID of the city to delete
+*
+* @package App\API\v1
+*/
+
 require_once __DIR__ . '../../../../bootstrap.php';
 
 use App\Repositories\CityRepository;
