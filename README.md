@@ -1,4 +1,4 @@
-# Iran-CityProvince-restAPI
+# Iran API
 Offers the list of provinces and cities of Iran (in Farsi).
 
 ### Built with
@@ -22,7 +22,7 @@ First, Import `sql/iran.sql` to your DBMS
 ## Base URL
 
 ```
-https://localhost/Iran-CityProvince/api/v1
+https://your-api-domain.com/api/v1
 ```
 
 ---
